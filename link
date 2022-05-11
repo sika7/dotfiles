@@ -1,0 +1,13 @@
+.config/Code/User/locale.json
+.config/Code/User/settings.json
+.config/fish/config.fish
+.config/fish/fishfile
+.config/nvim/coc-settings.json
+.config/nvim/ftdetect/pug.vim
+.config/nvim/ftdetect/stylus.vim
+.config/nvim/ftdetect/ts.vim
+.config/nvim/ftdetect/vue.vim
+.config/nvim/init.vim
+.config/nvim/snippets/php.snip
+.gitconfig
+.tmux.conf
