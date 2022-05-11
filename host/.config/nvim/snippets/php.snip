@@ -1,0 +1,277 @@
+
+snippet php
+options word
+        <?php ${1};?>${0}
+
+#  ------------------------------------------------------------------------------
+# DB and WP_Query related
+#  ------------------------------------------------------------------------------
+snippet wp_query
+abbr WP_Query
+      $args = array(
+        'no_found_rows'          => true,  // No need for pagination
+        'update_post_meta_cache' => false, // No need to fetch post meta fields
+        'update_post_term_cache' => false, // No need to fetch taxonomy fields
+        ${2:'fields'             => 'ids',  // We need only ids}
+        '${3}' => '${4}',
+      );
+
+      $wp_query = new WP_Query;
+      $${1:result} = $wp_query->query( $args );
+
+
+
+snippet taxonomy
+options word
+        # Custom Taxonomy: ${1:name}
+        $labels = array(
+          'name'                       => _x( '${2:$1}', 'Taxonomy General Name', '${4:text_domain}' ),
+          'singular_name'              => _x( '${3:singular_name}', 'Taxonomy Singular Name', '$4' ),
+          'menu_name'                  => __( 'Taxonomy', '$4' ),
+          'all_items'                  => __( 'All $2', '$4' ),
+          'parent_item'                => __( 'Parent $3', '$4' ),
+          'parent_item_colon'          => __( 'Parent $3:', '$4' ),
+          'new_item_name'              => __( 'New $3 Name', '$4' ),
+          'add_new_item'               => __( 'Add New $3', '$4' ),
+          'edit_item'                  => __( 'Edit $3', '$4' ),
+          'update_item'                => __( 'Update $3', '$4' ),
+          'separate_items_with_commas' => __( 'Separate $2 with commas', '$4' ),
+          'search_items'               => __( 'Search $2', '$4' ),
+          'add_or_remove_items'        => __( 'Add or remove $2', '$4' ),
+          'choose_from_most_used'      => __( 'Choose from the most used $2', '$4' ),
+          'not_found'                  => __( 'Not Found', '$4' ),
+        );
+        $args = array(
+          'labels'                     => $labels,
+          'hierarchical'               => false,
+          'public'                     => true,
+          'show_ui'                    => true,
+          'show_admin_column'          => true,
+          'show_in_nav_menus'          => true,
+          'show_tagcloud'              => true,
+        );
+        register_taxonomy( 'taxonomy', array( '${5:post}' ), $args );
+
+
+snippet posttype "Custom Post Type"
+        # Custom Post Type: ${1:name}
+        $labels = array(
+          'name'                => _x( '${2:$1}', '${1} General Name', '${4:text_domain}' ),
+          'singular_name'       => _x( '${3:singular_name}', '${1} Singular Name', '$4' ),
+          'menu_name'           => __( 'Post Type', '$4' ),
+          'parent_item_colon'   => __( 'Parent $3:', '$4' ),
+          'all_items'           => __( 'All $2', '$4' ),
+          'view_item'           => __( 'View $3', '$4' ),
+          'add_new_item'        => __( 'Add New $3', '$4' ),
+          'add_new'             => __( 'Add New', '$4' ),
+          'edit_item'           => __( 'Edit $3', '$4' ),
+          'update_item'         => __( 'Update $3', '$4' ),
+          'search_items'        => __( 'Search $3', '$4' ),
+          'not_found'           => __( 'Not found', '$4' ),
+          'not_found_in_trash'  => __( 'Not found in Trash', '$4' ),
+        );
+        $args = array(
+          'label'               => $labels
+          'description'         => __( '${5:$1 description}', '$4' ),
+          'labels'              => $labels,
+          'supports'            => array( ),
+          'public'              => true,
+          'show_ui'             => true,
+          'show_in_menu'        => true,
+          'show_in_nav_menus'   => true,
+          'show_in_admin_bar'   => true,
+          'can_export'          => true,
+          'publicly_queryable'  => true,
+          'capability_type'     => '${6:capability}',
+        );
+        register_post_type( 'post_type', $args );
+
+
+snippet poststatus "Register Post Status"
+        register_post_status('${1:name}',
+          array(
+            'label' => _x( '${1/.*/\u$0/}', '${1/.*/\u$0/}', '${2:text_domain}' ),
+            'public' => true,
+            'exclude_from_search' => false,
+            'show_in_admin_all_list' => true,
+            'show_in_admin_status_list' => true,
+            'label_count' => _n_noop( '${1/.*/\u$0/} <span class="count">(%s)</span>', '${1/.*/\u$0/} <span class="count">(%s)</span>', 'edd' )
+          )
+        );
+
+
+snippet sidebar "New Sidebar"
+        register_sidebar(
+          array(
+            'id'           => '${1:id}',
+            'name'         => __( '${2:$1}' ),
+            'description'  => __( '${3:$1 description}' )
+          )
+        );
+
+
+snippet navmenu "Custom Nav Menu"
+        register_nav_menus(
+          array(
+            '${1:name}' => __( '${2:$1 description}', '${3:text_domain}' )
+          )
+        );
+
+
+snippet wpquery "Custom WP_Query"
+        $args = array(
+          $0
+        );
+
+        $query = new WP_Query($args);
+
+
+snippet userquery "Custom WP_User_Query"
+        $args = array(
+          $0
+        );
+
+        $user_query = new WP_User_Query($args);
+
+
+snippet commentquery "Custom Comment Query"
+        $args = array(
+          $0
+        );
+
+        $comment_query = new WP_Comment_Query();
+        $comment_query->query($args);
+
+
+snippet loop "WordPress Loop"
+        if ( $query->have_posts() ) {
+          while ( $query->have_posts() ) {
+            $query->the_post();
+            $1
+          }
+        } else {
+          $0
+        }
+
+        wp_reset_postdata();
+
+
+snippet salts "WordPress Salts"
+        `wget -q -O - https://api.wordpress.org/secret-key/1.1/salt/`
+
+
+snippet themeheader "Register Theme Headers"
+        register_default_headers(
+          array(
+            '${1:name}' => array(
+              'url'           => '${2:%s/images/headers/$1.jpg}',
+              'thumbnail_url' => '${3:%s/images/headers/$1-thumbnail.jpg}',
+              'description'   => __( '${4:${1/.*/\u$0/}}', '${5:parent}' )
+            )
+          )
+        );
+
+snippet wploop
+abbr 通常のループ
+        <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+        ${0}
+        <?php endwhile; else: _e('ごめんなさいコンテンツがありません'); endif; ?>
+
+
+# ======================
+# 特殊なスニペット
+# ======================
+
+snippet template_mame
+abbr 固定ページのテンプレートを選択式にする
+options head
+alias page
+        <?php /* Template Name: ${0:template} */ ?>
+
+snippet wp_nav
+        <?php wp_nav_menu( array ( 'theme_location' => '${1:nav_name}','container' => nav, ) ); ?>
+
+snippet wp_pagenavi
+abbr ページネーションを追加する　要Plugin wp_pagenavi
+        <?php if(function_exists('wp_pagenavi')) { wp_pagenavi(); }?>
+
+snippet wp_sidebar
+        <?php if ( is_active_sidebar( 'sidebar_1' ) ) : dynamic_sidebar( 'sidebar_1' ); else: ?>
+        <div class="widget">
+            <h2>No Widget</h2>
+            <p>ウィジットは設定されていません。</p>
+        </div>
+        <?php endif;?>
+
+
+# ======================
+# 一行のスニペット
+# ======================
+
+
+snippet language
+abbr htmlのalnguage
+options word
+        <?php language_attributes(); ?>
+
+snippet wp_head
+abbr wordpressのhead部分に入れておく
+        wp_head(${1})${0}
+
+snippet wp_footer
+abbr wordpressのfooter部分に入れておく
+        wp_footer(${1})${0}
+
+snippet link
+alias url
+abbr wordpressのurl
+        <?php echo esc_url( home_url()); ?>
+
+snippet body_class
+abbr wordpressのbody部分に入れておく
+        <?php body_class(${1})${0}; ?>
+
+snippet get_header
+abbr wordpressのheaderテンプレートを取得する
+        <?php get_header(${1})${0}; ?>
+
+snippet get_sidebar
+abbr wordpressのsidebarテンプレートを取得する
+        get_sidebar(${0})${0}
+
+snippet get_footer
+abbr wordpressのfooterテンプレートを取得する
+        <?php get_footer(${1})${0}; ?>
+
+snippet get_the_date
+abbr wordpressの日付を取得
+        <?php get_the_date(${1})${0}; ?>
+
+snippet get_the_title
+abbr wordpressのtitleを取得
+        get_the_title(${1})${0}
+
+snippet the_permalink
+alias link
+abbr wordpressのパーマリンクを取得
+        the_permalink(${1})${0}
+
+snippet post_class
+        post_class(${1})${0}
+
+snippet the_ID
+        id="post-<?php the_ID(); ?>"
+
+snippet the_content
+        the_content(${0})${0}
+
+
+# ======================
+# マイスニペット
+# ======================
+
+snippet image
+abbr アイキャッチを追加
+        <?php if(has_post_thumbnail()): the_post_thumbnail( '${1:name}', array('alt' =>$title ,'class' => '${2:class}')); else: echo '<img src="' . get_template_directory_uri() . '/images/${3:images}" alt="${4}" width="${5}" height="${6}" class="${2:class}">'; endif; ?>
+
+

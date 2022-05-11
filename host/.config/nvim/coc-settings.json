@@ -1,0 +1,19 @@
+{
+  "list.normalMappings": {
+    "<C-c>": "do:exit"
+  },
+  "list.insertMappings": {
+    "<C-c>": "do:exit"
+  },
+  "emmet.includeLanguages": {
+    "stylus": "css",
+    "css": "css"
+  },
+  "translator.toLang": "ja",
+  "translator.engines": ["google"],
+  "languageserver": {
+  },
+  "git.enableGutters": true,
+  "coc.preferences.formatOnType": true,
+  "explorer.file.showHiddenFiles":true
+}
