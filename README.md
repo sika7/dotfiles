@@ -28,12 +28,12 @@ ln -s ~/dotfiles/host/.config/fish/fish_plugins ~/.config/fish/fish_plugins
 ### nvim
 
 ```bash
+ln -s ~/dotfiles/host/.config/nvim/init.vim ~/.config/nvim/init.vim
 ln -s ~/dotfiles/host/.config/nvim/coc-settings.json ~/.config/nvim/coc-settings.json
 ln -s ~/dotfiles/host/.config/nvim/ftdetect/pug.vim ~/.config/nvim/ftdetect/pug.vim
 ln -s ~/dotfiles/host/.config/nvim/ftdetect/stylus.vim ~/.config/nvim/ftdetect/stylus.vim
 ln -s ~/dotfiles/host/.config/nvim/ftdetect/ts.vim ~/.config/nvim/ftdetect/ts.vim
 ln -s ~/dotfiles/host/.config/nvim/ftdetect/vue.vim ~/.config/nvim/ftdetect/vue.vim
-ln -s ~/dotfiles/host/.config/nvim/init.vim ~/.config/nvim/init.vim
 ln -s ~/dotfiles/host/.config/nvim/snippets/php.snip ~/.config/nvim/snippets/php.snip
 ```
 
