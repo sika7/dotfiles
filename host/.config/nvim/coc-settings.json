@@ -15,5 +15,6 @@
   },
   "git.enableGutters": true,
   "coc.preferences.formatOnType": true,
-  "explorer.file.showHiddenFiles":true
+  "explorer.file.showHiddenFiles": true,
+  "snippets.ultisnips.pythonPrompt": false
 }
