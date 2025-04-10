@@ -54,6 +54,9 @@ Plug 'lighttiger2505/gtags.vim', { 'for': ['js','javascript','typescript', 'php'
 
 Plug 'sika7/coc-claude'
 
+" マークダウンをプレビュー
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
+
 " emmet入力
 Plug 'mattn/emmet-vim', { 'for': ['html','pug','css','php','stylus','sass','vue'] }
 
@@ -494,6 +497,12 @@ nnoremap <silent> [fzf-p]t     :<C-u>CocCommand fzf-preview.BufferTags<CR>
 nnoremap <silent> [fzf-p]q     :<C-u>CocCommand fzf-preview.QuickFix<CR>
 nnoremap <silent> [fzf-p]l     :<C-u>CocCommand fzf-preview.LocationList<CR>
 
+"==============================
+"MarkdownPreview設定
+"==============================
+
+nnoremap <C-s> <Plug>MarkdownPreviewStop
+nnoremap <C-p> <Plug>MarkdownPreviewToggle
 
 "==============================
 "claude-code設定
