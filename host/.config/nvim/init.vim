@@ -52,6 +52,8 @@ Plug 'jsfaint/gen_tags.vim', { 'for': ['js','javascript','typescript', 'php'] }
 " タグの生成
 Plug 'lighttiger2505/gtags.vim', { 'for': ['js','javascript','typescript', 'php'] }
 
+Plug 'sika7/coc-claude'
+
 " emmet入力
 Plug 'mattn/emmet-vim', { 'for': ['html','pug','css','php','stylus','sass','vue'] }
 
@@ -492,3 +494,16 @@ nnoremap <silent> [fzf-p]t     :<C-u>CocCommand fzf-preview.BufferTags<CR>
 nnoremap <silent> [fzf-p]q     :<C-u>CocCommand fzf-preview.QuickFix<CR>
 nnoremap <silent> [fzf-p]l     :<C-u>CocCommand fzf-preview.LocationList<CR>
 
+
+"==============================
+"claude-code設定
+"==============================
+
+" set runtimepath^=~/Documents/coc-claude
+
+nnoremap <silent> <leader>cl :CocCommand claude.log<CR>
+nnoremap <silent> <leader>ca :CocCommand claude.ask<CR>
+nnoremap <silent> <leader>co :CocCommand claude.askCodeOnly<CR>
+
+vmap <leader>ca <Plug>(coc-claude-ask)
+vmap <leader>co <Plug>(coc-claude-ask-code-only)
