@@ -46,12 +46,6 @@ Plug 'tyru/caw.vim'
 " カッコをいい感じにしてくれる
 " Plug 'cohama/lexima.vim'
 
-" タグの生成
-Plug 'jsfaint/gen_tags.vim', { 'for': ['js','javascript','typescript', 'php'] }
-
-" タグの生成
-Plug 'lighttiger2505/gtags.vim', { 'for': ['js','javascript','typescript', 'php'] }
-
 Plug 'sika7/coc-claude'
 
 " マークダウンをプレビュー
