@@ -461,15 +461,6 @@ xmap <silent> <C-d> y/\V<C-r>=escape(@",'/\')<CR><CR>gN<Plug>(coc-cursors-range)
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " ===
-" coc-bookmark
-" ===
-nmap <C-m> :<C-u>CocList bookmark<cr>
-nmap <C-m>m <Plug>(coc-bookmark-annotate)
-nmap <C-m>t <Plug>(coc-bookmark-toggle)
-nmap <C-m>n <Plug>(coc-bookmark-next)
-nmap <C-m>p <Plug>(coc-bookmark-prev)
-
-" ===
 " coc-translator
 " ===
 nmap <Leader>t <Plug>(coc-translator-e)
