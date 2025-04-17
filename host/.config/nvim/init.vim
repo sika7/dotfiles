@@ -235,17 +235,6 @@ nnoremap P :call PhpDocSingle()<CR>
 vnoremap P :call PhpDocRange()<CR>
 
 "==============================
-" gen_tags
-"==============================
-
-" let g:gen_tags#ctags_auto_gen = 1
-" let g:gen_tags#gtags_auto_gen = 1
-
-" Options
-" let g:Gtags_Auto_Map = 0
-" let g:Gtags_OpenQuickfixWindow = 1
-
-"==============================
 " emmet
 "==============================
 
