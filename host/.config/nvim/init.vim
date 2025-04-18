@@ -54,6 +54,9 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' 
 " emmet入力
 Plug 'mattn/emmet-vim', { 'for': ['html','pug','css','php','stylus','sass','vue'] }
 
+" snacks.nvim（UI改善モジュール群）
+Plug 'folke/snacks.nvim'
+
 call plug#end()
 
 
@@ -514,3 +517,30 @@ endfunction
 
 let g:coc_snippet_next = '<tab>'
 
+"==============================
+"snacks設定
+"==============================
+
+" インラインLua実行
+lua << EOF
+
+require("snacks").setup({
+  picker = {
+    layout = "vertical",
+    previewer = true,
+  },
+  terminal = {
+    integration = "toggleterm",  -- toggleterm.nvimと連携可能
+  },
+  notifier = {
+    enabled = true,  -- vim.notifyの見た目改善
+  },
+  dashboard = {
+    enabled = true,
+  },
+})
+
+-- キーマップ例：snacksのpickerを呼び出す
+vim.keymap.set("n", "<leader>f", require("snacks.picker").files, { desc = "Find files" })
+-- vim.keymap.set("n", "<C-/>", require("snacks.terminal").toggle, { desc = "Toggle terminal" })
+EOF
