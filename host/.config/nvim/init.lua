@@ -232,7 +232,6 @@ vim.g.coc_global_extensions = {
   'coc-css',
   'coc-explorer',
   'coc-translator',
-  'coc-fzf-preview',
   'coc-pairs',
   'coc-prettier',
   'coc-lua'
@@ -405,30 +404,6 @@ vim.keymap.set('n', '<Leader>t', '<Plug>(coc-translator-e)', { silent = true })
 vim.keymap.set('v', '<Leader>t', '<Plug>(coc-translator-ev)', { silent = true })
 
 --==============================
--- coc-fzf-preview
---==============================
-vim.keymap.set('n', '<Leader>f', '[fzf-p]', { silent = true })
-vim.keymap.set('x', '<Leader>f', '[fzf-p]', { silent = true })
-
-vim.cmd([[
-  nnoremap <silent> [fzf-p]p     :<C-u>CocCommand fzf-preview.FromResources project_mru git<CR>
-  nnoremap <silent> [fzf-p]gs    :<C-u>CocCommand fzf-preview.GitStatus<CR>
-  nnoremap <silent> [fzf-p]ga    :<C-u>CocCommand fzf-preview.GitActions<CR>
-  nnoremap <silent> [fzf-p]b     :<C-u>CocCommand fzf-preview.Buffers<CR>
-  nnoremap <silent> [fzf-p]B     :<C-u>CocCommand fzf-preview.AllBuffers<CR>
-  nnoremap <silent> [fzf-p]o     :<C-u>CocCommand fzf-preview.FromResources buffer project_mru<CR>
-  nnoremap <silent> [fzf-p]<C-o> :<C-u>CocCommand fzf-preview.Jumps<CR>
-  nnoremap <silent> [fzf-p]g;    :<C-u>CocCommand fzf-preview.Changes<CR>
-  nnoremap <silent> [fzf-p]/     :<C-u>CocCommand fzf-preview.Lines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'"<CR>
-  nnoremap <silent> [fzf-p]*     :<C-u>CocCommand fzf-preview.Lines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'<C-r>=expand('<cword>')<CR>"<CR>
-  nnoremap          [fzf-p]gr    :<C-u>CocCommand fzf-preview.ProjectGrep<Space>
-  xnoremap          [fzf-p]gr    "sy:CocCommand   fzf-preview.ProjectGrep<Space>-F<Space>"<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>"
-  nnoremap <silent> [fzf-p]t     :<C-u>CocCommand fzf-preview.BufferTags<CR>
-  nnoremap <silent> [fzf-p]q     :<C-u>CocCommand fzf-preview.QuickFix<CR>
-  nnoremap <silent> [fzf-p]l     :<C-u>CocCommand fzf-preview.LocationList<CR>
-]])
-
---==============================
 -- MarkdownPreview設定
 --==============================
 
@@ -494,7 +469,15 @@ require("snacks").setup({
   },
 })
 
+local picker = require("snacks.picker")
 
 -- キーマップ例：snacksのpickerを呼び出す
-vim.keymap.set("n", "<leader>f", require("snacks.picker").files, { desc = "Find files" })
+vim.keymap.set("n", "<C-f>", picker.files, { desc = "Find files" })
+vim.keymap.set("n", "<C-b>", picker.buffers)
+vim.keymap.set("n", "<C-p>", picker.pickers)
+vim.keymap.set("n", "<C-r>", picker.smart)
+vim.keymap.set("n", "<C-s>", picker.grep)
+
+
+
 -- vim.keymap.set("n", "<C-/>", require("snacks.terminal").toggle, { desc = "Toggle terminal" })
