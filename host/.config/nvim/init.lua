@@ -19,9 +19,6 @@ vim.cmd([[
   " vim-easy-align
   Plug 'junegunn/vim-easy-align'
 
-  " fzf search
-  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-
   " Syntax テーマ
   Plug 'w0ng/vim-hybrid'
 
