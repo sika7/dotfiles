@@ -97,7 +97,7 @@ vim.opt.expandtab = true
 vim.opt.listchars = "tab:>-,trail:>" -- タブを>-スペースを.で表示
 
 -- 検索の設定
-vim.opt.incsearch = true -- インクリメンタルサーチに変更
+vim.opt.incsearch = true   -- インクリメンタルサーチに変更
 
 vim.opt.signcolumn = 'yes' -- 行がずれないように
 
@@ -422,6 +422,4 @@ vim.keymap.set("n", "<C-b>", picker.buffers)
 vim.keymap.set("n", "<C-p>", picker.pickers)
 vim.keymap.set("n", "<C-r>", picker.smart)
 vim.keymap.set("n", "<C-s>", picker.grep)
--- vim.keymap.set("n", "<C-/>", require("snacks.terminal").toggle, { desc = "Toggle terminal" })
-
-
+vim.keymap.set("n", "<C-m>", require("snacks.terminal").toggle)
