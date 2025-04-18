@@ -99,6 +99,8 @@ vim.opt.listchars = "tab:>-,trail:>" -- タブを>-スペースを.で表示
 -- 検索の設定
 vim.opt.incsearch = true -- インクリメンタルサーチに変更
 
+vim.opt.signcolumn = 'yes' -- 行がずれないように
+
 --==============================
 -- キーマッピング
 --==============================
@@ -220,9 +222,7 @@ vim.g.coc_global_extensions = {
   'coc-git',
   'coc-snippets',
   'coc-word',
-  'coc-syntax',
   'coc-yank',
-  'coc-actions',
   'coc-json',
   'coc-html',
   'coc-css',
@@ -256,7 +256,6 @@ vim.keymap.set('n', '<leader>wa', ':<C-u>CocList diagnostics<cr>', { silent = tr
 vim.keymap.set('n', 'sg', ':<C-u>CocList grep<cr>', { silent = true })
 
 vim.keymap.set('v', '<leader>g', ':<C-u>call v:lua.GrepFromSelected(visualmode())<CR>', { silent = true })
-vim.keymap.set('n', '<leader>g', ':<C-u>set operatorfunc=v:lua.GrepFromSelected<CR>g@', { silent = true })
 
 -- GrepFromSelected関数をLuaで定義
 _G.GrepFromSelected = function(type)
@@ -283,47 +282,13 @@ vim.keymap.set('n', '<leader>e', ':<C-u>CocList extensions<cr>', { silent = true
 -- Show commands
 vim.keymap.set('n', '<leader>c', ':<C-u>CocList commands<cr>', { silent = true })
 
--- Find symbol of current document
-vim.keymap.set('n', '<leader>ol', ':<C-u>CocList outline<cr>', { silent = true })
-
 -- coc-yank
 vim.keymap.set('n', '<leader>y', ':<C-u>CocList -A --normal yank<cr>', { silent = true })
-
--- Search workspace symbols
--- vim.keymap.set('n', '<lender>s', ':<C-u>CocList -I symbols<cr>', { silent = true })
 
 --==============================
 -- coc-explorer
 --==============================
 vim.keymap.set('n', '<leader>ff', ':CocCommand explorer --position floating<CR>', { silent = true })
-
--- Symbol renaming.
-vim.keymap.set('n', '<leader>rn', '<Plug>(coc-rename)', { silent = true })
-
--- Always show the signcolumn, otherwise it would shift the text each time
--- diagnostics appear/become resolved.
-vim.opt.signcolumn = 'yes'
-
--- Use tab for trigger completion with characters ahead and navigate.
--- NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
--- other plugin before putting this into your config.
-
-vim.cmd([[
-  inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-  inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-  function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
-  endfunction
-]])
-
--- Use `[g` and `]g` to navigate diagnostics
-vim.keymap.set('n', '[g', '<Plug>(coc-diagnostic-prev)', { silent = true })
-vim.keymap.set('n', ']g', '<Plug>(coc-diagnostic-next)', { silent = true })
 
 -- GoTo code navigation.
 vim.keymap.set('n', 'gd', '<Plug>(coc-definition)', { silent = true })
@@ -357,15 +322,10 @@ vim.cmd([[
   augroup end
 ]])
 
--- Applying codeAction to the selected region.
--- Example: `<leader>aap` for current paragraph
-vim.keymap.set('x', '<leader>a', '<Plug>(coc-codeaction-selected)', { silent = true })
-vim.keymap.set('n', '<leader>a', '<Plug>(coc-codeaction-selected)', { silent = true })
-
 -- Remap keys for applying codeAction to the current line.
-vim.keymap.set('n', '<leader>ac', '<Plug>(coc-codeaction)', { silent = true })
+vim.keymap.set('n', '<C-a>', '<Plug>(coc-codeaction)', { silent = true })
 -- Apply AutoFix to problem on the current line.
-vim.keymap.set('n', '<leader>qf', '<Plug>(coc-fix-current)', { silent = true })
+vim.keymap.set('n', '<C>f', '<Plug>(coc-fix-current)', { silent = true })
 
 -- Do default action for next item.
 vim.keymap.set('n', '<C-n>', ':<C-u>CocNext<CR>', { silent = true })
@@ -374,16 +334,9 @@ vim.keymap.set('n', '<C-p>', ':<C-u>CocPrev<CR>', { silent = true })
 -- Resume latest coc list.
 vim.keymap.set('n', '<leader>p', ':<C-u>CocListResume<CR>', { silent = true })
 
--- マルチ選択設定
-vim.keymap.set('n', '<C-c>', '<Plug>(coc-cursors-position)', { silent = true })
-vim.keymap.set('n', '<C-d>', '<Plug>(coc-cursors-word)', { silent = true })
--- vim.keymap.set('x', '<C-d>', '<Plug>(coc-cursors-range)', { silent = true })
-
--- vim.keymap.set('n', '<C-d>', '<Plug>(coc-cursors-word)*', { silent = true })
-vim.keymap.set('x', '<C-d>', 'y/\\V<C-r>=escape(@",\'/\\\')<CR><CR>gN<Plug>(coc-cursors-range)gn', { silent = true })
-
 --==============================
 -- coc-pairs
+-- https://qiita.com/maguro_tuna/items/70814d99aef8f1ddc8e9
 --==============================
 vim.cmd([[
   inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
@@ -469,7 +422,6 @@ vim.keymap.set("n", "<C-b>", picker.buffers)
 vim.keymap.set("n", "<C-p>", picker.pickers)
 vim.keymap.set("n", "<C-r>", picker.smart)
 vim.keymap.set("n", "<C-s>", picker.grep)
-
-
-
 -- vim.keymap.set("n", "<C-/>", require("snacks.terminal").toggle, { desc = "Toggle terminal" })
+
+
