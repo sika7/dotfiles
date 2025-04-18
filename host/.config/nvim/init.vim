@@ -284,7 +284,8 @@ let g:coc_global_extensions = [
       \ 'coc-translator',
       \ 'coc-fzf-preview',
       \ 'coc-pairs',
-      \ 'coc-prettier'
+      \ 'coc-prettier',
+      \ 'coc-lua'
       \ ]
 
 " git status line
