@@ -221,7 +221,6 @@ vim.g.coc_global_extensions = {
   'coc-snippets',
   'coc-word',
   'coc-syntax',
-  'coc-highlight',
   'coc-yank',
   'coc-actions',
   'coc-json',
@@ -348,9 +347,6 @@ _G.show_documentation = function()
   end
 end
 
--- Highlight the symbol and its references when holding the cursor.
--- vim.cmd('autocmd CursorHold * silent call CocActionAsync("highlight")')
-
 vim.cmd([[
   augroup mygroup
     autocmd!
@@ -382,7 +378,6 @@ vim.keymap.set('n', '<leader>p', ':<C-u>CocListResume<CR>', { silent = true })
 vim.keymap.set('n', '<C-c>', '<Plug>(coc-cursors-position)', { silent = true })
 vim.keymap.set('n', '<C-d>', '<Plug>(coc-cursors-word)', { silent = true })
 -- vim.keymap.set('x', '<C-d>', '<Plug>(coc-cursors-range)', { silent = true })
--- vim.keymap.set('n', '<leader>x', '<Plug>(coc-cursors-operator)', { silent = true })
 
 -- vim.keymap.set('n', '<C-d>', '<Plug>(coc-cursors-word)*', { silent = true })
 vim.keymap.set('x', '<C-d>', 'y/\\V<C-r>=escape(@",\'/\\\')<CR><CR>gN<Plug>(coc-cursors-range)gn', { silent = true })
