@@ -324,13 +324,6 @@ vim.cmd([[
 
 -- Remap keys for applying codeAction to the current line.
 vim.keymap.set('n', '<C-a>', '<Plug>(coc-codeaction)', { silent = true })
--- Apply AutoFix to problem on the current line.
-vim.keymap.set('n', '<C>f', '<Plug>(coc-fix-current)', { silent = true })
-
--- Do default action for next item.
-vim.keymap.set('n', '<C-n>', ':<C-u>CocNext<CR>', { silent = true })
--- Do default action for previous item.
-vim.keymap.set('n', '<C-p>', ':<C-u>CocPrev<CR>', { silent = true })
 -- Resume latest coc list.
 vim.keymap.set('n', '<leader>p', ':<C-u>CocListResume<CR>', { silent = true })
 
