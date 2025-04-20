@@ -226,7 +226,6 @@ vim.g.coc_global_extensions = {
   'coc-json',
   'coc-html',
   'coc-css',
-  'coc-explorer',
   'coc-translator',
   'coc-pairs',
   'coc-prettier',
@@ -284,11 +283,6 @@ vim.keymap.set('n', '<leader>c', ':<C-u>CocList commands<cr>', { silent = true }
 
 -- coc-yank
 vim.keymap.set('n', '<leader>y', ':<C-u>CocList -A --normal yank<cr>', { silent = true })
-
---==============================
--- coc-explorer
---==============================
-vim.keymap.set('n', '<leader>ff', ':CocCommand explorer --position floating<CR>', { silent = true })
 
 -- GoTo code navigation.
 vim.keymap.set('n', 'gd', '<Plug>(coc-definition)', { silent = true })
@@ -411,6 +405,7 @@ local picker = require("snacks.picker")
 
 -- キーマップ例：snacksのpickerを呼び出す
 vim.keymap.set("n", "<C-f>", picker.files, { desc = "Find files" })
+vim.keymap.set("n", "<Leader>f", picker.explorer)
 vim.keymap.set("n", "<C-b>", picker.buffers)
 vim.keymap.set("n", "<C-p>", picker.pickers)
 vim.keymap.set("n", "<C-r>", picker.smart)
