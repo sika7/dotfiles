@@ -46,6 +46,9 @@ vim.cmd([[
   " snacks.nvim（UI改善モジュール群）
   Plug 'folke/snacks.nvim'
 
+  " キー入力を表示する
+  Plug 'nvzone/showkeys'
+
   call plug#end()
 ]])
 
@@ -377,6 +380,12 @@ vim.keymap.set('i', '<C-l>', '<Plug>(coc-snippets-expand)', { silent = true })
 vim.keymap.set('i', '<C-u>', '<Plug>(coc-snippets-expand-jump)', { silent = true })
 
 vim.g.coc_snippet_next = '<tab>'
+
+-- ==============================
+-- 入力key表示設定
+-- ==============================
+
+require("showkeys").toggle()
 
 -- ==============================
 -- snacks設定
