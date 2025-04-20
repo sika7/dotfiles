@@ -1,56 +1,83 @@
 -- ==============================
--- vim plug
+-- lazy nvim
 -- ==============================
-vim.cmd([[
-  call plug#begin('~/.vim/plugged')
 
-  " coc.nvim lspの補完など
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
 
-  " 多言語シンタックスチェック
-  Plug 'sheerun/vim-polyglot'
+require("lazy").setup({
+  -- coc.nvim lspの補完など
+  {
+    'neoclide/coc.nvim',
+    branch = "release",
+  },
 
-  " jsdoc
-  Plug 'heavenshell/vim-jsdoc', { 'for': ['js','javascript','typescript'], 'do': 'make install' }
+  -- 多言語シンタックスチェック
+  'sheerun/vim-polyglot',
 
-  " phpdoc
-  Plug 'tobyS/pdv', { 'for': 'php' }
+  -- jsdoc
+  {
+    "heavenshell/vim-jsdoc",
+    ft = { "javascript", "typescript", "js" },
+    build = "make install",
+  },
 
-  " vim-easy-align
-  Plug 'junegunn/vim-easy-align'
+  -- phpdoc
+  {
+    "tobyS/pdv",
+    ft = { "php" },
+  },
 
-  " Syntax テーマ
-  Plug 'w0ng/vim-hybrid'
+  -- vim-easy-align
+  'junegunn/vim-easy-align',
 
-  " ステータスバー改造
-  Plug 'vim-airline/vim-airline'
+  -- Syntax テーマ
+  'w0ng/vim-hybrid',
 
-  " ステータスバーテーマ
-  Plug 'vim-airline/vim-airline-themes'
+  -- ステータスバー改造
+  'vim-airline/vim-airline',
 
-  " ウィンドウサイズを変更
-  Plug 'simeji/winresizer'
+  -- ステータスバーテーマ
+  'vim-airline/vim-airline-themes',
 
-  " コメントアウトを行うプラグイン
-  Plug 'tyru/caw.vim'
+  -- ウィンドウサイズを変更
+  'simeji/winresizer',
 
-  " 自作プラグイン
-  Plug 'sika7/coc-claude'
+  -- コメントアウトを行うプラグイン
+  'tyru/caw.vim',
 
-  " マークダウンをプレビュー
-  Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
+  -- 自作プラグイン
+  'sika7/coc-claude',
 
-  " emmet入力
-  Plug 'mattn/emmet-vim', { 'for': ['html','pug','css','php','stylus','sass','vue'] }
+  -- マークダウンをプレビュー
+  {
 
-  " snacks.nvim（UI改善モジュール群）
-  Plug 'folke/snacks.nvim'
+    'iamcco/markdown-preview.nvim',
+    build = "cd app && npx --yes yarn install",
+  },
 
-  " キー入力を表示する
-  Plug 'nvzone/showkeys'
+  -- emmet入力
+  {
+    'mattn/emmet-vim',
+    ft = { 'html', 'pug', 'css', 'php', 'stylus', 'sass', 'vue' }
+  },
 
-  call plug#end()
-]])
+  -- snacks.nvim（UI改善モジュール群）
+  'folke/snacks.nvim',
+
+  -- キー入力を表示する
+  'nvzone/showkeys',
+})
 
 -- ==============================
 -- エディターの設定
@@ -361,13 +388,13 @@ vim.keymap.set('n', '<C-p>', '<Plug>MarkdownPreviewToggle', { silent = true })
 
 -- vim.cmd('set runtimepath^=~/Documents/coc-claude')
 
-vim.keymap.set('n', '<leader>cl', ':CocCommand claude.log<CR>', { silent = true })
-vim.keymap.set('n', '<leader>ca', ':CocCommand claude.ask<CR>', { silent = true })
-vim.keymap.set('n', '<leader>co', ':CocCommand claude.askCodeOnly<CR>', { silent = true })
--- vim.keymap.set('n', '<leader>ct', ':CocCommand claude.test<CR>', { silent = true })
-
-vim.keymap.set('v', '<leader>ca', '<Plug>(coc-claude-ask)', { silent = true })
-vim.keymap.set('v', '<leader>co', '<Plug>(coc-claude-ask-code-only)', { silent = true })
+-- vim.keymap.set('n', '<leader>cl', ':CocCommand claude.log<CR>', { silent = true })
+-- vim.keymap.set('n', '<leader>ca', ':CocCommand claude.ask<CR>', { silent = true })
+-- vim.keymap.set('n', '<leader>co', ':CocCommand claude.askCodeOnly<CR>', { silent = true })
+-- -- vim.keymap.set('n', '<leader>ct', ':CocCommand claude.test<CR>', { silent = true })
+--
+-- vim.keymap.set('v', '<leader>ca', '<Plug>(coc-claude-ask)', { silent = true })
+-- vim.keymap.set('v', '<leader>co', '<Plug>(coc-claude-ask-code-only)', { silent = true })
 
 --==============================
 -- coc-snippets設定
