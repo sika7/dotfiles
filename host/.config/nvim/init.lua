@@ -387,9 +387,9 @@ require("snacks").setup({
     layout = "vertical",
     previewer = true,
   },
-  terminal = {
-    integration = "toggleterm", -- toggleterm.nvimと連携可能
-  },
+  -- terminal = {
+  --   integration = "toggleterm", -- toggleterm.nvimと連携可能
+  -- },
   notifier = {
     enabled = true, -- vim.notifyの見た目改善
   },
@@ -407,4 +407,3 @@ vim.keymap.set("n", "<C-b>", picker.buffers)
 vim.keymap.set("n", "<C-p>", picker.pickers)
 vim.keymap.set("n", "<C-r>", picker.smart)
 vim.keymap.set("n", "<C-s>", picker.grep)
-vim.keymap.set("n", "<C-m>", require("snacks.terminal").toggle)
