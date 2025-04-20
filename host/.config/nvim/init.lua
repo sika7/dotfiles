@@ -262,9 +262,6 @@ vim.g.coc_global_extensions = {
   'coc-lua'
 }
 
--- git status line
-vim.opt.statusline = "%{coc#status()}%{get(b:,'coc_current_function','')}%=" .. vim.o.statusline
-
 -- coc listでtabで保管する設定
 local opts = {
   silent = true,
