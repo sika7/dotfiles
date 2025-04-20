@@ -384,12 +384,8 @@ vim.g.coc_snippet_next = '<tab>'
 
 require("snacks").setup({
   picker = {
-    layout = "vertical",
     previewer = true,
   },
-  -- terminal = {
-  --   integration = "toggleterm", -- toggleterm.nvimと連携可能
-  -- },
   notifier = {
     enabled = true, -- vim.notifyの見た目改善
   },
