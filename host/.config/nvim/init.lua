@@ -235,6 +235,16 @@ vim.g.coc_global_extensions = {
 -- git status line
 vim.opt.statusline = "%{coc#status()}%{get(b:,'coc_current_function','')}%=" .. vim.o.statusline
 
+-- coc listでtabで保管する設定
+local opts = {
+  silent = true,
+  noremap = true,
+  expr = true,
+  replace_keycodes = false
+}
+vim.keymap.set("i", "<TAB>", 'coc#pum#visible() ? coc#pum#next(1) : "<Tab>"', opts)
+vim.keymap.set("i", "<S-TAB>", [[coc#pum#visible() ? coc#pum#prev(1) : "<C-h>"]], opts)
+
 --==============================
 -- coc-list
 --==============================
@@ -365,19 +375,6 @@ vim.keymap.set('i', '<C-l>', '<Plug>(coc-snippets-expand)', { silent = true })
 
 -- Use <C-j> for both expand and jump (make expand higher priority.)
 vim.keymap.set('i', '<C-u>', '<Plug>(coc-snippets-expand-jump)', { silent = true })
-
-vim.cmd([[
-  inoremap <silent><expr> <TAB>
-       \ coc#pum#visible() ? coc#_select_confirm() :
-       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-       \ CheckBackspace() ? "\<TAB>" :
-       \ coc#refresh()
-
-  function! CheckBackspace() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
-  endfunction
-]])
 
 vim.g.coc_snippet_next = '<tab>'
 
