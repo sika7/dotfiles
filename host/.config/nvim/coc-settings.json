@@ -11,8 +11,16 @@
   },
   "translator.toLang": "ja",
   "translator.engines": ["google"],
-  "languageserver": {
+  "Lua.workspace.library": {
+    "/usr/local/share/nvim/runtime/lua": true,
+    "/usr/local/share/nvim/runtime/lua/vim": true,
+    "/usr/local/share/nvim/runtime/lua/vim/lsp": true
+    "${3rd}/luv/library": true,
+    "${3rd}/plenary.nvim/lua": true,
+    "${workspaceFolder}/lua": true
   },
+  "Lua.diagnostics.globals": ["vim"],
+  "languageserver": {},
   "git.enableGutters": true,
   "coc.preferences.formatOnType": true,
   "explorer.file.showHiddenFiles": true,
