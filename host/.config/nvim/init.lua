@@ -394,23 +394,15 @@ vim.keymap.set('n', '<C-s>', '<Plug>MarkdownPreviewStop', { silent = true })
 vim.keymap.set('n', '<C-p>', '<Plug>MarkdownPreviewToggle', { silent = true })
 
 --==============================
--- claude-code設定
+-- aiAssist設定
 --==============================
 
--- vim.cmd('set runtimepath^=~/Documents/coc-claude')
-
--- vim.keymap.set('n', '<leader>cl', ':CocCommand claude.log<CR>', { silent = true })
--- vim.keymap.set('n', '<leader>ca', ':CocCommand claude.ask<CR>', { silent = true })
--- vim.keymap.set('n', '<leader>co', ':CocCommand claude.askCodeOnly<CR>', { silent = true })
--- -- vim.keymap.set('n', '<leader>ct', ':CocCommand claude.test<CR>', { silent = true })
---
--- vim.keymap.set('v', '<leader>ca', '<Plug>(coc-claude-ask)', { silent = true })
--- vim.keymap.set('v', '<leader>co', '<Plug>(coc-claude-ask-code-only)', { silent = true })
-
--- function ReloadCocExtension()
---   vim.cmd("call CocAction('toggleExtension', 'coc-claude')")
--- end
--- vim.keymap.set("n", "<C-r>", ReloadCocExtension)
+vim.keymap.set('n', '<leader>a', ':CocCommand aiAssist.quickAssist<CR>', { silent = true })
+vim.keymap.set('n', '<leader>ad', ':CocCommand aiAssist.detailedAssist<CR>', { silent = true })
+vim.keymap.set('n', '<leader>ac', ':CocCommand aiAssist.selectClient<CR>', { silent = true })
+vim.keymap.set('n', '<leader>am', ':CocCommand aiAssist.selectModel<CR>', { silent = true })
+vim.keymap.set('n', '<leader>as', ':CocCommand aiAssist.selectSystemPrompt<CR>', { silent = true })
+vim.keymap.set('n', '<leader>ah', ':CocCommand aiAssist.showHistory<CR>', { silent = true })
 
 --==============================
 -- coc-snippets設定
@@ -453,14 +445,25 @@ vim.keymap.set("n", "<C-f>", picker.files, { desc = "Find files" })
 vim.keymap.set("n", "<Leader>f", picker.explorer)
 vim.keymap.set("n", "<C-b>", picker.buffers)
 vim.keymap.set("n", "<C-p>", picker.pickers)
--- vim.keymap.set("n", "<C-r>", picker.smart)
+vim.keymap.set("n", "<C-r>", picker.smart)
 vim.keymap.set("n", "<C-s>", picker.grep)
 
+-- ==============================
+-- プラグイン開発設定
+-- ==============================
 
-local function packageReload(moduleName)
-  package.loaded[moduleName] = nil
-  return require(moduleName)
-end
-vim.keymap.set("n", "<C-r>", function()
-  packageReload("ai-assistant")
-end)
+-- vim.cmd('set runtimepath^=~/Documents/coc-claude')
+-- vim.keymap.set('n', '<leader>ct', ':CocCommand claude.test<CR>', { silent = true })
+
+-- function ReloadCocExtension()
+--   vim.cmd("call CocAction('toggleExtension', 'coc-claude')")
+-- end
+-- vim.keymap.set("n", "<C-r>", ReloadCocExtension)
+
+-- local function packageReload(moduleName)
+--   package.loaded[moduleName] = nil
+--   return require(moduleName)
+-- end
+-- vim.keymap.set("n", "<C-r>", function()
+--   packageReload("ai-assistant")
+-- end)
