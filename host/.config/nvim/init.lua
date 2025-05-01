@@ -56,6 +56,12 @@ require("lazy").setup({
   -- コメントアウトを行うプラグイン
   'tyru/caw.vim',
 
+  -- 画像をコピペでインサートできるようにするプラグイン
+  'sika7/dropmd.nvim',
+
+  -- ワークスペースのlua設定ファイルを読むプラグイン
+  'sika7/workspace-config.nvim',
+
   -- 自作プラグイン
   -- 'sika7/coc-claude',
   -- {
