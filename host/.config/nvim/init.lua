@@ -448,11 +448,11 @@ local picker = require("snacks.picker")
 
 -- キーマップ例：snacksのpickerを呼び出す
 vim.keymap.set("n", "<C-f>", picker.files, { desc = "Find files" })
-vim.keymap.set("n", "<Leader>f", picker.explorer)
-vim.keymap.set("n", "<C-b>", picker.buffers)
-vim.keymap.set("n", "<C-p>", picker.pickers)
-vim.keymap.set("n", "<C-r>", picker.smart)
-vim.keymap.set("n", "<C-s>", picker.grep)
+vim.keymap.set("n", "<C-e>", picker.explorer)
+vim.keymap.set("n", "<C-f>b", picker.buffers)
+vim.keymap.set("n", "<C-f>p", picker.pickers)
+vim.keymap.set("n", "<C-f>r", picker.smart)
+vim.keymap.set("n", "<C-f>s", picker.grep)
 
 -- ==============================
 -- プラグイン開発設定
