@@ -191,6 +191,23 @@ vim.keymap.set('n', '<S-Tab>', 'gT', { silent = true })
 vim.keymap.set('n', '<Leader>i', 'gg=G\'\'', { silent = true })
 
 --==============================
+-- markdownのときテキストを折り返さない設定(マークダウンのテーブル表示用)
+--==============================
+
+-- init.lua などに追記
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    -- 折り返しをオフに
+    vim.opt_local.wrap = false
+    -- 自動でテキストを折り返す幅（textwidth）をリセット
+    vim.opt_local.textwidth = 0
+    -- 自動フォーマット（formatoptions の 't'）を外す
+    vim.opt_local.formatoptions:remove("t")
+  end,
+})
+
+--==============================
 -- インサートモード設定
 --==============================
 
