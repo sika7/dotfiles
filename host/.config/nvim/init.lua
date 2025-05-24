@@ -311,7 +311,6 @@ vim.g.coc_global_extensions = {
   'coc-css',
   'coc-translator',
   'coc-pairs',
-  'coc-prettier',
   'coc-lua'
 }
 
@@ -379,9 +378,6 @@ vim.keymap.set('n', 'gd', '<Plug>(coc-definition)', { silent = true })
 vim.keymap.set('n', 'gy', '<Plug>(coc-type-definition)', { silent = true })
 vim.keymap.set('n', 'gi', '<Plug>(coc-implementation)', { silent = true })
 vim.keymap.set('n', 'gr', '<Plug>(coc-references)', { silent = true })
-
--- スペースfmtでFormat
-vim.keymap.set('n', '<space>fmt', '<Plug>(coc-format)', { silent = true })
 
 -- Use K to show documentation in preview window.
 vim.keymap.set('n', 'K', ':call v:lua.show_documentation()<CR>', { silent = true })
