@@ -38,6 +38,14 @@ require("lazy").setup({
     ft = { "php" },
   },
 
+  {
+    "prettier/vim-prettier",
+    ft = {
+      "javascript", "typescript", "css", "scss", "html",
+      "json", "markdown", "graphql", "vue", "yaml"
+    },
+  },
+
   -- vim-easy-align
   'junegunn/vim-easy-align',
 
@@ -265,6 +273,14 @@ vim.g.user_emmet_settings = {
   },
   indentation = '  '
 }
+
+
+--==============================
+-- Prettier
+--==============================
+
+-- キーマップ: <leader>p で Prettier を実行
+vim.keymap.set('n', '<leader>fmt', ':Prettier<CR>', { noremap = true, silent = true, desc = "Format with Prettier" })
 
 --==============================
 -- coc.nvim (lsp)
