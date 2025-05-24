@@ -25,6 +25,24 @@ require("lazy").setup({
   -- 多言語シンタックスチェック
   'sheerun/vim-polyglot',
 
+  -- mason と nvim-lspconfig のブリッジ
+  {
+    "mason-org/mason-lspconfig.nvim",
+    opts = {},
+    dependencies = {
+      -- さまざまな LSP サーバに基本的な Nvim LSP クライアント構成を提供
+      "neovim/nvim-lspconfig",
+      -- LSPサーバーのマネージャー
+      "mason-org/mason.nvim",
+    },
+  },
+  -- blink.cmp 本体は補完UI（メニュー）を提供。
+  {
+    "saghen/blink.cmp",
+    version = "1.*"
+  },
+  -- cmp-nvim-lsp は LSP との補完統合用アダプタ。
+
   -- jsdoc
   {
     "heavenshell/vim-jsdoc",
@@ -281,6 +299,90 @@ vim.g.user_emmet_settings = {
 
 -- キーマップ: <leader>p で Prettier を実行
 vim.keymap.set('n', '<leader>fmt', ':Prettier<CR>', { noremap = true, silent = true, desc = "Format with Prettier" })
+
+--==============================
+-- LSP Sever management
+--==============================
+local mason = require("mason")
+local mason_lspconfig = require("mason-lspconfig")
+local lspconfig = require("lspconfig")
+
+-- lua langのセットアップ(nvim用)
+lspconfig.lua_ls.setup({
+  settings = {
+    Lua = {
+      runtime = {
+        version = "LuaJIT", -- Neovim は LuaJIT ベース
+        path = vim.split(package.path, ";"),
+      },
+      diagnostics = {
+        globals = { "vim" }, -- "vim" グローバルを未定義として警告しない
+      },
+      workspace = {
+        library = vim.api.nvim_get_runtime_file("", true),
+        checkThirdParty = false, -- 依存パッケージのチェックを無効化（誤警告対策）
+      },
+      telemetry = {
+        enable = false, -- 解析情報の送信を無効化（プライバシー）
+      },
+    },
+  },
+})
+
+mason.setup()
+-- local lsp_servers = { "lua_ls", "ts_ls", "pyright", "jsonls", "yamlls", "rust_analyzer", "html" }
+local lsp_servers = { "pyright" }
+local diagnostics = { "typos_lsp" }
+
+-- local capabilities = require("blink.cmp").get_lsp_capabilities()
+mason_lspconfig.setup({
+  ensure_installed = vim.tbl_flatten({ lsp_servers, diagnostics }),
+  automatic_installation = true,
+  handlers = {
+    function(server_name)
+      lspconfig.typos_lsp.setup({})
+
+      lspconfig[server_name].setup({
+        -- capabilities = capabilities
+      })
+    end,
+  },
+})
+
+--==============================
+-- blink.cmp 本体は補完UI（メニュー）を提供
+--==============================
+require("blink.cmp").setup({
+  sources = {
+    default = { "lsp", "path", "snippets", "buffer" },
+  },
+  snippets = {}, -- 使用するスニペットエンジンを指定
+  completion = {
+    accept = {
+      auto_brackets = {
+        enabled = true, -- 自動括弧補完を有効化
+      },
+    },
+    documentation = {
+      auto_show = true,         -- ドキュメントの自動表示を有効化
+      auto_show_delay_ms = 200, -- 表示までの遅延時間（ミリ秒）
+    },
+  },
+})
+
+
+-- -- カーソル下の変数の情報
+vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
+-- 定義ジャンプ
+vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
+-- 定義ジャンプ後に下のファイルに戻る
+vim.keymap.set('n', 'gt', '<C-t>')
+-- 改行やインデントなどのフォーマット
+vim.keymap.set('n', 'gf', '<cmd>lua vim.lsp.buf.formatting()<CR>')
+-- カーソル下の変数をコード内で参照している箇所
+vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>')
+-- 変数名のリネーム
+vim.keymap.set('n', 'gn', '<cmd>lua vim.lsp.buf.rename()<CR>')
 
 --==============================
 -- coc.nvim (lsp)
