@@ -332,7 +332,7 @@ mason.setup()
 local lsp_servers = { "lua_ls", "ts_ls", "pyright", "jsonls", "yamlls", "rust_analyzer", "html" }
 local diagnostics = { "typos_lsp" }
 
--- local capabilities = require("blink.cmp").get_lsp_capabilities()
+local capabilities = require("blink.cmp").get_lsp_capabilities()
 mason_lspconfig.setup({
   ensure_installed = vim.tbl_flatten({ lsp_servers, diagnostics }),
   automatic_installation = true,
@@ -341,7 +341,7 @@ mason_lspconfig.setup({
       lspconfig.typos_lsp.setup({})
 
       lspconfig[server_name].setup({
-        -- capabilities = capabilities
+        capabilities = capabilities
       })
     end,
   },
