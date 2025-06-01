@@ -295,10 +295,10 @@ local picker = require("snacks.picker")
 -- キーマップ例：snacksのpickerを呼び出す
 vim.keymap.set("n", "<C-f>", picker.files, { desc = "Find files" })
 vim.keymap.set("n", "<C-e>", picker.explorer)
-vim.keymap.set("n", "<C-f>b", picker.buffers)
-vim.keymap.set("n", "<C-f>p", picker.pickers)
-vim.keymap.set("n", "<C-f>r", picker.smart)
-vim.keymap.set("n", "<C-f>s", picker.grep)
+vim.keymap.set("n", "<Leader>b", picker.buffers, {})
+vim.keymap.set("n", "<Leader>p", picker.pickers)
+vim.keymap.set("n", "<Leader>r", picker.smart)
+vim.keymap.set("n", "<Leader>g", picker.grep)
 
 --==============================
 -- git差分表示のためのプラグイン
@@ -387,21 +387,19 @@ require("blink.cmp").setup({
 vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
 -- 定義ジャンプ
 vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
+-- 実装へジャンプ
+vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
 -- 定義ジャンプ後に下のファイルに戻る
-vim.keymap.set('n', 'gt', '<C-t>')
+vim.keymap.set('n', 'gr', '<C-t>')
 -- 改行やインデントなどのフォーマット
 vim.keymap.set('n', 'gf', '<cmd>lua vim.lsp.buf.formatting()<CR>')
 -- カーソル下の変数をコード内で参照している箇所
-vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>')
--- 変数名のリネーム
-vim.keymap.set('n', 'gn', '<cmd>lua vim.lsp.buf.rename()<CR>')
+vim.keymap.set('n', 'gy', '<cmd>lua vim.lsp.buf.references()<CR>')
+-- Error/Warning/Hintの実行可能な修正の候補を表示
+vim.keymap.set('n', 'ga', '<cmd>lua vim.lsp.buf.code_action()<CR>')
 
--- GoTo code navigation.
--- vim.keymap.set('n', 'gd', '<Plug>(coc-definition)', { silent = true })
--- vim.keymap.set('n', 'gy', '<Plug>(coc-type-definition)', { silent = true })
--- vim.keymap.set('n', 'gi', '<Plug>(coc-implementation)', { silent = true })
--- vim.keymap.set('n', 'gr', '<Plug>(coc-references)', { silent = true })
-
+vim.keymap.set('n', 'gn', '<cmd>lua vim.diagnostic.goto_next()<CR>')
+vim.keymap.set('n', 'gp', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
 
 --==============================
 -- coc.nvim (lsp)
