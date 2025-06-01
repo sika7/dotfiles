@@ -217,23 +217,6 @@ vim.keymap.set('n', '<S-Tab>', 'gT', { silent = true })
 vim.keymap.set('n', '<Leader>i', 'gg=G\'\'', { silent = true })
 
 --==============================
--- markdownのときテキストを折り返さない設定(マークダウンのテーブル表示用)
---==============================
-
--- init.lua などに追記
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "markdown",
-  callback = function()
-    -- 折り返しをオフに
-    vim.opt_local.wrap = false
-    -- 自動でテキストを折り返す幅（textwidth）をリセット
-    vim.opt_local.textwidth = 0
-    -- 自動フォーマット（formatoptions の 't'）を外す
-    vim.opt_local.formatoptions:remove("t")
-  end,
-})
-
---==============================
 -- インサートモード設定
 --==============================
 
@@ -291,13 +274,44 @@ vim.g.user_emmet_settings = {
   indentation = '  '
 }
 
+-- ==============================
+-- snacks設定
+-- ==============================
+
+require("snacks").setup({
+  picker = {
+    previewer = true,
+  },
+  notifier = {
+    enabled = true, -- vim.notifyの見た目改善
+  },
+  dashboard = {
+    enabled = true,
+  },
+})
+
+local picker = require("snacks.picker")
+
+-- キーマップ例：snacksのpickerを呼び出す
+vim.keymap.set("n", "<C-f>", picker.files, { desc = "Find files" })
+vim.keymap.set("n", "<C-e>", picker.explorer)
+vim.keymap.set("n", "<C-f>b", picker.buffers)
+vim.keymap.set("n", "<C-f>p", picker.pickers)
+vim.keymap.set("n", "<C-f>r", picker.smart)
+vim.keymap.set("n", "<C-f>s", picker.grep)
 
 --==============================
--- Prettier
+-- git差分表示のためのプラグイン
 --==============================
-
--- キーマップ: <leader>p で Prettier を実行
-vim.keymap.set('n', '<leader>fmt', ':Prettier<CR>', { noremap = true, silent = true, desc = "Format with Prettier" })
+require("gitsigns").setup({
+  signs = {
+    add = { text = "+" },
+    change = { text = "~" },
+    delete = { text = "-" },
+    topdelete = { text = "‾" },
+    changedelete = { text = "~" },
+  },
+})
 
 --==============================
 -- LSP Sever management
@@ -344,19 +358,6 @@ mason_lspconfig.setup({
         capabilities = capabilities
       })
     end,
-  },
-})
-
---==============================
--- git差分表示のためのプラグイン
---==============================
-require("gitsigns").setup({
-  signs = {
-    add = { text = "+" },
-    change = { text = "~" },
-    delete = { text = "-" },
-    topdelete = { text = "‾" },
-    changedelete = { text = "~" },
   },
 })
 
@@ -414,43 +415,41 @@ vim.cmd([[
 ]])
 
 --==============================
+-- Prettier
+--==============================
+
+-- キーマップ: <leader>p で Prettier を実行
+vim.keymap.set('n', '<leader>fmt', ':Prettier<CR>', { noremap = true, silent = true, desc = "Format with Prettier" })
+
+--==============================
 -- MarkdownPreview設定
 --==============================
 
 vim.keymap.set('n', '<C-s>', '<Plug>MarkdownPreviewStop', { silent = true })
 vim.keymap.set('n', '<C-p>', '<Plug>MarkdownPreviewToggle', { silent = true })
 
+--==============================
+-- markdownのときテキストを折り返さない設定(マークダウンのテーブル表示用)
+--==============================
+
+-- init.lua などに追記
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    -- 折り返しをオフに
+    vim.opt_local.wrap = false
+    -- 自動でテキストを折り返す幅（textwidth）をリセット
+    vim.opt_local.textwidth = 0
+    -- 自動フォーマット（formatoptions の 't'）を外す
+    vim.opt_local.formatoptions:remove("t")
+  end,
+})
+
 -- ==============================
 -- 入力key表示設定
 -- ==============================
 
 require("showkeys").toggle()
-
--- ==============================
--- snacks設定
--- ==============================
-
-require("snacks").setup({
-  picker = {
-    previewer = true,
-  },
-  notifier = {
-    enabled = true, -- vim.notifyの見た目改善
-  },
-  dashboard = {
-    enabled = true,
-  },
-})
-
-local picker = require("snacks.picker")
-
--- キーマップ例：snacksのpickerを呼び出す
-vim.keymap.set("n", "<C-f>", picker.files, { desc = "Find files" })
-vim.keymap.set("n", "<C-e>", picker.explorer)
-vim.keymap.set("n", "<C-f>b", picker.buffers)
-vim.keymap.set("n", "<C-f>p", picker.pickers)
-vim.keymap.set("n", "<C-f>r", picker.smart)
-vim.keymap.set("n", "<C-f>s", picker.grep)
 
 -- ==============================
 -- プラグイン開発設定
