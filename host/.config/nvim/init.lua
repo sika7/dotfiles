@@ -91,6 +91,9 @@ require("lazy").setup({
   -- gitの差分表示するためのプラグイン
   'lewis6991/gitsigns.nvim',
 
+  -- カッコをいい感じにしてくれるプラグイン
+  { 'echasnovski/mini.pairs', version = '*' },
+
   -- 自作プラグイン
   -- 'sika7/coc-claude',
   -- {
@@ -427,7 +430,6 @@ vim.g.coc_global_extensions = {
   'coc-html',
   'coc-css',
   'coc-translator',
-  'coc-pairs',
   'coc-lua'
 }
 
@@ -523,14 +525,6 @@ vim.cmd([[
 vim.keymap.set('n', '<C-a>', '<Plug>(coc-codeaction)', { silent = true })
 -- Resume latest coc list.
 vim.keymap.set('n', '<leader>p', ':<C-u>CocListResume<CR>', { silent = true })
-
---==============================
--- coc-pairs
--- https://qiita.com/maguro_tuna/items/70814d99aef8f1ddc8e9
---==============================
-vim.cmd([[
-  inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-]])
 
 --==============================
 -- coc-translator
