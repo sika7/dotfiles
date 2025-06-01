@@ -413,8 +413,32 @@ require("blink.cmp").setup({
 })
 
 
+local function smart_hover()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local params = {
+    textDocument = vim.lsp.util.make_text_document_params(),
+    position = vim.api.nvim_win_get_cursor(0)
+  }
+
+  for _, client in ipairs(vim.lsp.get_active_clients({ bufnr = bufnr })) do
+    if type(client.supports_method) == "function" and client.supports_method("textDocument/signatureHelp") then
+      client.request("textDocument/signatureHelp", params, function(err, result)
+        if result and result.signatures and #result.signatures > 0 then
+          vim.lsp.buf.signature_help()
+        else
+          vim.lsp.buf.hover()
+        end
+      end, bufnr)
+      return
+    end
+  end
+
+  vim.lsp.buf.hover()
+end
+
+
 -- -- カーソル下の変数の情報
-vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
+vim.keymap.set('n', 'K', smart_hover)
 -- 定義ジャンプ
 vim.keymap.set('n', 'gd', function () picker.lsp_definitions({ layout = { preset = "ivy" } }) end)
 -- 実装へジャンプ
