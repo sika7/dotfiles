@@ -88,6 +88,15 @@ require("lazy").setup({
   -- カッコをいい感じにしてくれるプラグイン
   { 'echasnovski/mini.pairs', version = '*' },
 
+  -- シグネイチャヘルプをいい感じにしてくれるプラグイン
+  {
+    "ray-x/lsp_signature.nvim",
+    event = "InsertEnter",
+    opts = {
+      -- cfg options
+    },
+  },
+
   -- 自作プラグイン
   -- 'sika7/coc-claude',
   -- {
