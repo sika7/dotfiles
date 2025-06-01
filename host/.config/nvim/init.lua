@@ -74,7 +74,7 @@ require("lazy").setup({
   'simeji/winresizer',
 
   -- コメントアウトを行うプラグイン
-  'tyru/caw.vim',
+  'numToStr/Comment.nvim',
 
   -- 画像をコピペでインサートできるようにするプラグイン
   'sika7/dropmd.nvim',
@@ -257,8 +257,7 @@ vim.keymap.set('n', 'ga', '<Plug>(EasyAlign)', { silent = true })
 --==============================
 
 -- 行の最初の文字の前にコメント文字をトグル
-vim.keymap.set('n', 'cc', '<Plug>(caw:hatpos:toggle)', { silent = true })
-vim.keymap.set('v', 'cc', '<Plug>(caw:hatpos:toggle)', { silent = true })
+require('Comment').setup()
 
 --==============================
 -- JsDoc Config
