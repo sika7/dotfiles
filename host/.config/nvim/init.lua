@@ -384,6 +384,7 @@ mason_lspconfig.setup({
 --==============================
 require("blink.cmp").setup({
   sources = {
+    { name = "nvim_lsp" },
     default = { "lsp", "path", "snippets", "buffer" },
   },
   snippets = {}, -- 使用するスニペットエンジンを指定
