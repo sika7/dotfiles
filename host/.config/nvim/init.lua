@@ -16,12 +16,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  -- coc.nvim lspの補完など
-  {
-    'neoclide/coc.nvim',
-    branch = "release",
-  },
-
   -- 多言語シンタックスチェック
   'sheerun/vim-polyglot',
 
@@ -336,8 +330,7 @@ lspconfig.lua_ls.setup({
 })
 
 mason.setup()
--- local lsp_servers = { "lua_ls", "ts_ls", "pyright", "jsonls", "yamlls", "rust_analyzer", "html" }
-local lsp_servers = { "pyright" }
+local lsp_servers = { "lua_ls", "ts_ls", "pyright", "jsonls", "yamlls", "rust_analyzer", "html" }
 local diagnostics = { "typos_lsp" }
 
 -- local capabilities = require("blink.cmp").get_lsp_capabilities()
@@ -403,6 +396,13 @@ vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>')
 -- 変数名のリネーム
 vim.keymap.set('n', 'gn', '<cmd>lua vim.lsp.buf.rename()<CR>')
 
+-- GoTo code navigation.
+-- vim.keymap.set('n', 'gd', '<Plug>(coc-definition)', { silent = true })
+-- vim.keymap.set('n', 'gy', '<Plug>(coc-type-definition)', { silent = true })
+-- vim.keymap.set('n', 'gi', '<Plug>(coc-implementation)', { silent = true })
+-- vim.keymap.set('n', 'gr', '<Plug>(coc-references)', { silent = true })
+
+
 --==============================
 -- coc.nvim (lsp)
 --==============================
@@ -414,146 +414,12 @@ vim.cmd([[
   " hi CocCursorRange guibg=#b16286 guifg=#ebdbb2
 ]])
 
--- install plugins
-vim.g.coc_global_extensions = {
-  'coc-tsserver',
-  'coc-vetur',
-  'coc-phpls',
-  'coc-yaml',
-  'coc-emmet',
-  'coc-eslint',
-  'coc-lists',
-  'coc-snippets',
-  'coc-word',
-  'coc-yank',
-  'coc-json',
-  'coc-html',
-  'coc-css',
-  'coc-lua'
-}
-
--- coc listでtabで保管する設定
-local opts = {
-  silent = true,
-  noremap = true,
-  expr = true,
-  replace_keycodes = false
-}
-vim.keymap.set("i", "<TAB>", 'coc#pum#visible() ? coc#pum#next(1) : "<Tab>"', opts)
-vim.keymap.set("i", "<S-TAB>", [[coc#pum#visible() ? coc#pum#prev(1) : "<C-h>"]], opts)
-
---==============================
--- coc-list
---==============================
-
--- スペース2回でCocList
-vim.keymap.set('n', '<space><space>', ':<C-u>CocList<cr>', { silent = true })
-
--- ファイルを開く
-vim.keymap.set('n', '<leader>sf', ':<C-u>CocList files<cr>', { silent = true })
-
--- Prettier formatter
-vim.cmd('command! -nargs=0 Prettier :CocCommand prettier.formatFile')
-
--- Workspaceを診断
-vim.keymap.set('n', '<leader>wa', ':<C-u>CocList diagnostics<cr>', { silent = true })
-
--- Grepで検索
-vim.keymap.set('n', 'sg', ':<C-u>CocList grep<cr>', { silent = true })
-
-vim.keymap.set('v', '<leader>g', ':<C-u>call v:lua.GrepFromSelected(visualmode())<CR>', { silent = true })
-
--- GrepFromSelected関数をLuaで定義
-_G.GrepFromSelected = function(type)
-  local saved_unnamed_register = vim.fn.getreg('"')
-  if type == 'v' then
-    vim.cmd('normal! `<v`>y')
-  elseif type == 'char' then
-    vim.cmd('normal! `[v`]y')
-  else
-    return
-  end
-  local word = vim.fn.substitute(vim.fn.getreg('"'), [[\n$]], '', 'g')
-  word = vim.fn.escape(word, '| ')
-  vim.fn.setreg('"', saved_unnamed_register)
-  vim.cmd('CocList grep ' .. word)
-end
-
--- Show buffers
-vim.keymap.set('n', 'b', ':<C-u>CocList buffers<cr>', { silent = true })
-
--- Manage extensions
-vim.keymap.set('n', '<leader>e', ':<C-u>CocList extensions<cr>', { silent = true })
-
--- Show commands
-vim.keymap.set('n', '<leader>c', ':<C-u>CocList commands<cr>', { silent = true })
-
--- coc-yank
-vim.keymap.set('n', '<leader>y', ':<C-u>CocList -A --normal yank<cr>', { silent = true })
-
--- GoTo code navigation.
-vim.keymap.set('n', 'gd', '<Plug>(coc-definition)', { silent = true })
-vim.keymap.set('n', 'gy', '<Plug>(coc-type-definition)', { silent = true })
-vim.keymap.set('n', 'gi', '<Plug>(coc-implementation)', { silent = true })
-vim.keymap.set('n', 'gr', '<Plug>(coc-references)', { silent = true })
-
--- Use K to show documentation in preview window.
-vim.keymap.set('n', 'K', ':call v:lua.show_documentation()<CR>', { silent = true })
-
--- show_documentation関数をLuaで定義
-_G.show_documentation = function()
-  local filetype = vim.bo.filetype
-  if filetype == 'vim' or filetype == 'help' then
-    vim.cmd('h ' .. vim.fn.expand('<cword>'))
-  else
-    vim.fn.CocActionAsync('doHover')
-  end
-end
-
-vim.cmd([[
-  augroup mygroup
-    autocmd!
-    " Setup formatexpr specified filetype(s).
-    autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-    " Update signature help on jump placeholder.
-    autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-  augroup end
-]])
-
--- Remap keys for applying codeAction to the current line.
-vim.keymap.set('n', '<C-a>', '<Plug>(coc-codeaction)', { silent = true })
--- Resume latest coc list.
-vim.keymap.set('n', '<leader>p', ':<C-u>CocListResume<CR>', { silent = true })
-
 --==============================
 -- MarkdownPreview設定
 --==============================
 
 vim.keymap.set('n', '<C-s>', '<Plug>MarkdownPreviewStop', { silent = true })
 vim.keymap.set('n', '<C-p>', '<Plug>MarkdownPreviewToggle', { silent = true })
-
---==============================
--- aiAssist設定
---==============================
-
-vim.keymap.set('n', '<leader>a', ':CocCommand aiAssist.quickAssist<CR>', { silent = true })
-vim.keymap.set('n', '<leader>ad', ':CocCommand aiAssist.detailedAssist<CR>', { silent = true })
-vim.keymap.set('n', '<leader>ac', ':CocCommand aiAssist.selectClient<CR>', { silent = true })
-vim.keymap.set('n', '<leader>am', ':CocCommand aiAssist.selectModel<CR>', { silent = true })
-vim.keymap.set('n', '<leader>as', ':CocCommand aiAssist.selectSystemPrompt<CR>', { silent = true })
-vim.keymap.set('n', '<leader>ah', ':CocCommand aiAssist.showHistory<CR>', { silent = true })
-
---==============================
--- coc-snippets設定
---==============================
-
--- Use <C-l> for trigger snippet expand.
-vim.keymap.set('i', '<C-l>', '<Plug>(coc-snippets-expand)', { silent = true })
-
--- Use <C-j> for both expand and jump (make expand higher priority.)
-vim.keymap.set('i', '<C-u>', '<Plug>(coc-snippets-expand-jump)', { silent = true })
-
-vim.g.coc_snippet_next = '<tab>'
 
 -- ==============================
 -- 入力key表示設定
