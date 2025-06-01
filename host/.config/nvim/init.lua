@@ -429,7 +429,6 @@ vim.g.coc_global_extensions = {
   'coc-json',
   'coc-html',
   'coc-css',
-  'coc-translator',
   'coc-lua'
 }
 
@@ -525,12 +524,6 @@ vim.cmd([[
 vim.keymap.set('n', '<C-a>', '<Plug>(coc-codeaction)', { silent = true })
 -- Resume latest coc list.
 vim.keymap.set('n', '<leader>p', ':<C-u>CocListResume<CR>', { silent = true })
-
---==============================
--- coc-translator
---==============================
-vim.keymap.set('n', '<Leader>t', '<Plug>(coc-translator-e)', { silent = true })
-vim.keymap.set('v', '<Leader>t', '<Plug>(coc-translator-ev)', { silent = true })
 
 --==============================
 -- MarkdownPreview設定
