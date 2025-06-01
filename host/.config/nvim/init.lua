@@ -295,7 +295,7 @@ local picker = require("snacks.picker")
 -- キーマップ例：snacksのpickerを呼び出す
 vim.keymap.set("n", "<C-f>", picker.files, { desc = "Find files" })
 vim.keymap.set("n", "<C-e>", picker.explorer)
-vim.keymap.set("n", "<Leader>b", picker.buffers, {})
+vim.keymap.set("n", "<Leader>b", picker.buffers)
 vim.keymap.set("n", "<Leader>p", picker.pickers)
 vim.keymap.set("n", "<Leader>r", picker.smart)
 vim.keymap.set("n", "<Leader>g", picker.grep)
@@ -363,22 +363,34 @@ mason_lspconfig.setup({
 
 --==============================
 -- blink.cmp 本体は補完UI（メニュー）を提供
+-- https://eiji.page/blog/neovim-blink-cmp-intro/
 --==============================
 require("blink.cmp").setup({
   sources = {
     default = { "lsp", "path", "snippets", "buffer" },
   },
-  snippets = {}, -- 使用するスニペットエンジンを指定
+  snippets = { preset = "luasnip" }, -- 使用するスニペットエンジンを指定
   completion = {
     accept = {
       auto_brackets = {
         enabled = true, -- 自動括弧補完を有効化
       },
     },
+    menu = { border = 'single' },
     documentation = {
+      window = { border = 'single' },
       auto_show = true,         -- ドキュメントの自動表示を有効化
       auto_show_delay_ms = 200, -- 表示までの遅延時間（ミリ秒）
     },
+  },
+  signature = { window = { border = 'single' } },
+  keymap = {
+    preset = "enter",
+    ['<Tab>'] = { 'select_next', 'fallback' },
+    -- ["<C-u>"] = { "scroll_documentation_up", "fallback" },
+    -- ["<C-d>"] = { "scroll_documentation_down", "fallback" },
+    -- ["<C-b>"] = {},
+    -- ["<C-f>"] = {},
   },
 })
 
@@ -397,6 +409,9 @@ vim.keymap.set('n', 'gf', '<cmd>lua vim.lsp.buf.formatting()<CR>')
 vim.keymap.set('n', 'gy', '<cmd>lua vim.lsp.buf.references()<CR>')
 -- Error/Warning/Hintの実行可能な修正の候補を表示
 vim.keymap.set('n', 'ga', '<cmd>lua vim.lsp.buf.code_action()<CR>')
+
+-- type_definition???
+vim.keymap.set('n', 'gt', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
 
 vim.keymap.set('n', 'gn', '<cmd>lua vim.diagnostic.goto_next()<CR>')
 vim.keymap.set('n', 'gp', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
