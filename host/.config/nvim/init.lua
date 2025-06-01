@@ -88,6 +88,9 @@ require("lazy").setup({
   -- ワークスペースのlua設定ファイルを読むプラグイン
   'sika7/workspace-config.nvim',
 
+  -- gitの差分表示するためのプラグイン
+  'lewis6991/gitsigns.nvim',
+
   -- 自作プラグイン
   -- 'sika7/coc-claude',
   -- {
@@ -350,6 +353,19 @@ mason_lspconfig.setup({
 })
 
 --==============================
+-- git差分表示のためのプラグイン
+--==============================
+require("gitsigns").setup({
+  signs = {
+    add = { text = "+" },
+    change = { text = "~" },
+    delete = { text = "-" },
+    topdelete = { text = "‾" },
+    changedelete = { text = "~" },
+  },
+})
+
+--==============================
 -- blink.cmp 本体は補完UI（メニュー）を提供
 --==============================
 require("blink.cmp").setup({
@@ -404,7 +420,6 @@ vim.g.coc_global_extensions = {
   'coc-emmet',
   'coc-eslint',
   'coc-lists',
-  'coc-git',
   'coc-snippets',
   'coc-word',
   'coc-yank',
