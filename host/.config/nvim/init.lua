@@ -290,12 +290,12 @@ require("snacks").setup({
   },
 })
 
-local picker = require("snacks.picker")
+local picker = Snacks.picker
 
 -- キーマップ例：snacksのpickerを呼び出す
 vim.keymap.set("n", "<C-f>", picker.files, { desc = "Find files" })
 vim.keymap.set("n", "<C-e>", picker.explorer)
-vim.keymap.set("n", "<Leader>b", picker.buffers)
+vim.keymap.set("n", "<Leader>b", function () picker.buffers({ layout = { preset = "ivy" } }) end)
 vim.keymap.set("n", "<Leader>p", picker.pickers)
 vim.keymap.set("n", "<Leader>r", picker.smart)
 vim.keymap.set("n", "<Leader>g", picker.grep)
@@ -416,20 +416,20 @@ require("blink.cmp").setup({
 -- -- カーソル下の変数の情報
 vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
 -- 定義ジャンプ
-vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
+vim.keymap.set('n', 'gd', function () picker.lsp_definitions({ layout = { preset = "ivy" } }) end)
 -- 実装へジャンプ
-vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
+vim.keymap.set('n', 'gi', function () picker.lsp_implementations({ layout = { preset = "ivy" } }) end)
 -- 定義ジャンプ後に下のファイルに戻る
-vim.keymap.set('n', 'gr', '<C-t>')
--- 改行やインデントなどのフォーマット
-vim.keymap.set('n', 'gf', '<cmd>lua vim.lsp.buf.formatting()<CR>')
+-- vim.keymap.set('n', 'gr', '<C-t>')
+vim.keymap.set('n', 'gr', function () picker.lsp_references({ layout = { preset = "ivy" } }) end)
 -- カーソル下の変数をコード内で参照している箇所
-vim.keymap.set('n', 'gy', '<cmd>lua vim.lsp.buf.references()<CR>')
+vim.keymap.set('n', 'gy', function () picker.lsp_declarations({ layout = { preset = "ivy" } }) end)
+
 -- Error/Warning/Hintの実行可能な修正の候補を表示
 vim.keymap.set('n', 'ga', '<cmd>lua vim.lsp.buf.code_action()<CR>')
 
 -- type_definition???
-vim.keymap.set('n', 'gt', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
+vim.keymap.set('n', 'gt', function () picker.lsp_type_definitions({ layout = { preset = "ivy" } }) end)
 
 vim.keymap.set('n', 'gn', '<cmd>lua vim.diagnostic.goto_next()<CR>')
 vim.keymap.set('n', 'gp', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
