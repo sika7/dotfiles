@@ -369,7 +369,7 @@ require("blink.cmp").setup({
   sources = {
     default = { "lsp", "path", "snippets", "buffer" },
   },
-  snippets = { preset = "luasnip" }, -- 使用するスニペットエンジンを指定
+  snippets = {}, -- 使用するスニペットエンジンを指定
   completion = {
     accept = {
       auto_brackets = {
