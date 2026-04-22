@@ -113,8 +113,6 @@ require("lazy").setup({
   -- snacks.nvim（UI改善モジュール群）
   'folke/snacks.nvim',
 
-  -- キー入力を表示する
-  'nvzone/showkeys',
 })
 
 -- ==============================
@@ -499,12 +497,6 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.formatoptions:remove("t")
   end,
 })
-
--- ==============================
--- 入力key表示設定
--- ==============================
-
-require("showkeys").toggle()
 
 -- ==============================
 -- プラグイン開発設定
