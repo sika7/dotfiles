@@ -24,7 +24,7 @@ require("lazy").setup({
     "mason-org/mason-lspconfig.nvim",
     opts = {},
     dependencies = {
-      -- さまざまな LSP サーバに基本的な Nvim LSP クライアント構成を提供
+      -- さまざまな LSP サーバの設定を提供
       "neovim/nvim-lspconfig",
       -- LSPサーバーのマネージャー
       "mason-org/mason.nvim",
@@ -329,13 +329,14 @@ vim.keymap.set('n', '<leader>hD', function() gitsigns.diffthis('~') end)
 --==============================
 -- LSP Sever management
 --==============================
-local mason = require("mason")
-local mason_lspconfig = require("mason-lspconfig")
-local lspconfig = require("lspconfig")
-mason.setup()
+require("mason").setup()
+
+--==============================
+-- LSP の設定
+--==============================
 
 -- lua langのセットアップ(nvim用)
-lspconfig.lua_ls.setup({
+vim.lsp.config("lua_ls", {
   settings = {
     Lua = {
       runtime = {
@@ -356,22 +357,13 @@ lspconfig.lua_ls.setup({
   },
 })
 
+--==============================
+-- LSP Sever 自動有効化
+--==============================
 local lsp_servers = { "lua_ls", "ts_ls", "pyright", "jsonls", "yamlls", "rust_analyzer", "html", "intelephense" }
-local diagnostics = { "typos_lsp" }
 
-local capabilities = require("blink.cmp").get_lsp_capabilities()
-mason_lspconfig.setup({
-  ensure_installed = vim.tbl_flatten({ lsp_servers, diagnostics }),
-  automatic_installation = true,
-  handlers = {
-    function(server_name)
-      lspconfig.typos_lsp.setup({})
-
-      lspconfig[server_name].setup({
-        capabilities = capabilities
-      })
-    end,
-  },
+require("mason-lspconfig").setup({
+  automatic_enable = lsp_servers
 })
 
 --==============================
