@@ -28,17 +28,14 @@ ln -s ~/dotfiles/.config/fish/fish_plugins ~/.config/fish/fish_plugins
 ### nvim
 
 ```bash
-ln -s ~/dotfiles/.config/nvim/init.vim ~/.config/nvim/init.vim
-ln -s ~/dotfiles/.config/nvim/coc-settings.json ~/.config/nvim/coc-settings.json
-ln -s ~/dotfiles/.config/nvim/ftdetect/pug.vim ~/.config/nvim/ftdetect/pug.vim
-ln -s ~/dotfiles/.config/nvim/ftdetect/stylus.vim ~/.config/nvim/ftdetect/stylus.vim
-ln -s ~/dotfiles/.config/nvim/ftdetect/ts.vim ~/.config/nvim/ftdetect/ts.vim
-ln -s ~/dotfiles/.config/nvim/ftdetect/vue.vim ~/.config/nvim/ftdetect/vue.vim
-ln -s ~/dotfiles/.config/nvim/snippets/php.snip ~/.config/nvim/snippets/php.snip
+ln -s ~/dotfiles/.config/nvim/init.lua ~/.config/nvim/init.lua
+ln -sn ~/dotfiles/.config/nvim/ftdetect/ ~/.config/nvim/ftdetect
+ln -sn ~/dotfiles/.config/nvim/snippets/ ~/.config/nvim/snippets
 ```
 
 ## 削除
 
 ```bash
 ls -l ~/.gitconfig
+unlink ~/.gitconfig
 ```
