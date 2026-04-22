@@ -273,6 +273,14 @@ vim.g.user_emmet_settings = {
 require("snacks").setup({
   picker = {
     previewer = true,
+    -- 検索から除外する設定を追加
+    exclude = {
+      "_ide_helper.php",
+      "_ide_helper_models.php",
+      ".phpstorm.meta.php",
+      "storage",
+      "vendor",
+    },
   },
   notifier = {
     enabled = true, -- vim.notifyの見た目改善
@@ -352,7 +360,7 @@ lspconfig.lua_ls.setup({
 })
 
 mason.setup()
-local lsp_servers = { "lua_ls", "ts_ls", "pyright", "jsonls", "yamlls", "rust_analyzer", "html" }
+local lsp_servers = { "lua_ls", "ts_ls", "pyright", "jsonls", "yamlls", "rust_analyzer", "html", "intelephense" }
 local diagnostics = { "typos_lsp" }
 
 local capabilities = require("blink.cmp").get_lsp_capabilities()
