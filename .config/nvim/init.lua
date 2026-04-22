@@ -332,6 +332,7 @@ vim.keymap.set('n', '<leader>hD', function() gitsigns.diffthis('~') end)
 local mason = require("mason")
 local mason_lspconfig = require("mason-lspconfig")
 local lspconfig = require("lspconfig")
+mason.setup()
 
 -- lua langのセットアップ(nvim用)
 lspconfig.lua_ls.setup({
@@ -355,7 +356,6 @@ lspconfig.lua_ls.setup({
   },
 })
 
-mason.setup()
 local lsp_servers = { "lua_ls", "ts_ls", "pyright", "jsonls", "yamlls", "rust_analyzer", "html", "intelephense" }
 local diagnostics = { "typos_lsp" }
 
