@@ -97,23 +97,6 @@ require("lazy").setup({
     },
   },
 
-  -- 自作プラグイン
-  -- 'sika7/coc-claude',
-  -- {
-  --   dir = "~/Documents/coc-claude",
-  --   dependencies = {
-  --     'folke/snacks.nvim',
-  --   },
-  -- },
-  {
-    dir = "~/Documents/ai-assistant.nvim/",
-    dependencies = {
-      'folke/snacks.nvim',
-      -- 'nvim-lua/plenary.nvim', -- HTTP通信用
-    },
-    name = "ai-assistant",
-  },
-
   -- マークダウンをプレビュー
   {
 
